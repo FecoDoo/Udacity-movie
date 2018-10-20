@@ -1,0 +1,12 @@
+{
+	"client": "client/",
+	"svr": "server/",
+	"miniprogramRoot": "client/",
+	"qcloudRoot": "server/",
+	"setting": {
+		"newFeature": true
+	},
+	"appid": "wx9fb285f29ecb0db0",
+	"projectname": "Udacity-movie-wxapp",
+	"condition": {}
+}

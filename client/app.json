@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/review-mine/review-mine",
+    "pages/movie-hot-list/movie-hot-list",
+    "pages/review-preview/review-preview",
+    "pages/review-detail/review-detail",
+    "pages/review-edit/review-edit",
+    "pages/movie-detail/movie-detail",
+    "pages/review-list/review-list"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "Udacity电影",
+    "navigationBarTextStyle": "black"
+  }
+}
