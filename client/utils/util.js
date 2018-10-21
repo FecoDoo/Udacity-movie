@@ -1,42 +1,74 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+const getLineNums = (blockHeight) => {
+  const linesHeight = 1.5 * 16;
+  return Math.floor(blockHeight / linesHeight);
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+const reviewKey = {
+  review_id: "review_id",
+  movieId: "movieId",
+  imageUrl: "imageUrl",
+  name: "name",
+  dataType: "dataType",
+  text: "text",
+  voiceUrl: "voiceUrl",
+  userId: "userId",
+  duration: "duration"
 }
 
-
-// 显示繁忙提示
-var showBusy = text => wx.showToast({
-    title: text,
-    icon: 'loading',
-    duration: 10000
-})
-
-// 显示成功提示
-var showSuccess = text => wx.showToast({
-    title: text,
-    icon: 'success'
-})
-
-// 显示失败提示
-var showModel = (title, content) => {
-    wx.hideToast();
-
-    wx.showModal({
-        title,
-        content: JSON.stringify(content),
-        showCancel: false
-    })
+const movieKey = {
+  id: "id",
+  title: "title",
+  image: "image",
+  description: "description",
+  create_time: "create_time"
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showModel }
+const getReviewOpt = (options) => {
+  const review = {
+    review_id: options[reviewKey.review_id],
+    movieId: options[reviewKey.movieId],
+    imageUrl: options[reviewKey.imageUrl],
+    name: options[reviewKey.name],
+    dataType: options[reviewKey.dataType],
+    text: options[reviewKey.text],
+    voiceUrl: options[reviewKey.voiceUrl],
+    userId: options[reviewKey.userId],
+    duration: options[reviewKey.duration]
+  }
+  return review
+}
+
+const getMovieOpt = (options) => {
+  const movie = {
+    id: options[movieKey.id],
+    title: options[movieKey.title],
+    image: options[movieKey.image],
+    description: options[movieKey.description],
+    create_time: options[movieKey.create_time]
+  }
+  return movie
+}
+
+const createMovieParam = (movie) => {
+  let paramUrl = ''
+  for (const [key, keyValue] of Object.entries(movieKey)) {
+    paramUrl += keyValue + '=' + movie[keyValue] + '&&'
+  }
+  return paramUrl
+}
+
+const createReviewParam = (review) => {
+  let paramUrl = ''
+  for (const [key, keyValue] of Object.entries(reviewKey)) {
+    paramUrl += keyValue + '=' + review[keyValue] + '&&'
+  }
+  return paramUrl
+}
+
+const getFileName = (url) => {
+  var filename = url.substring(url.lastIndexOf('/')+1);
+  return filename
+}
+
+module.exports = { getLineNums, getReviewOpt, getMovieOpt,
+                   createMovieParam, createReviewParam, getFileName }

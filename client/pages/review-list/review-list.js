@@ -1,66 +1,52 @@
-// pages/review-list/review-list.js
+// pages/review-list.js
+const qcloud = require('../../vendor/wafer2-client-sdk/index')
+const config = require('../../config.js')
+const utils = require('../../utils/util.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    reviewList: [],
+    movie: {}
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    const movie = utils.getMovieOpt(options)
 
+    this.setData({
+      movie
+    })
+
+    qcloud.request({
+      url: config.service.reviewsUrl + movie.id,
+      success: result => {
+        this.setData({
+          reviewList: result.data.data
+        })
+      },
+      fail: result => {
+        wx.showModal({ title: '返回错误', content: '请求失败', showCancel: false });
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  backHomeClick: function(e) {
+    wx.navigateBack({
+      delta: 50
+    })
   },
+  listClick: function(e) {
+    const _this = this
+    const review = _this.data.reviewList[e.currentTarget.dataset.index]
+    let pageUrl = '../review-detail/review-detail?'
+    pageUrl += utils.createReviewParam(review)
+    pageUrl += utils.createMovieParam(_this.data.movie)
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.navigateTo({
+      url: pageUrl
+    })
   }
 })

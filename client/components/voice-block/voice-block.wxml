@@ -1,0 +1,6 @@
+<!--components/voice-block/voice-block.wxml-->
+<view class='voice'> 
+  <text class='fa fa-play-circle'/>
+  <slot></slot>
+  <text class='voice-length'>{{voice}}s</text>
+</view>

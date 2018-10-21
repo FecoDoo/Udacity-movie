@@ -1,2 +1,18 @@
 <!--pages/review-preview/review-preview.wxml-->
-<text>pages/review-preview/review-preview.wxml</text>
+<view class="container">
+  <review-card review="{{ review }}" movie="{{ movie }}">
+    <voice-block slot="voice" bindtap="onTapVoice"  wx:if="{{ review.dataType=='语音' }}" voice="{{ review.duration }}">
+      <text class='fa fa-play-circle'/>
+    </voice-block>
+    <view slot="buttons" class="buttons">
+      <view class='view-button' bindtap="reEditBtnClick">
+        <text class='fa fa-undo' />
+        <text>重新编辑</text>
+      </view>
+      <view class='add-button' bindtap="sendReviewBtnClick">
+        <text class='fa fa-paper-plane'/>
+        <text>发布影评</text>
+      </view>
+    </view>
+  </review-card>
+</view>

@@ -4,9 +4,39 @@
 	"miniprogramRoot": "client/",
 	"qcloudRoot": "server/",
 	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": true,
+		"minified": true,
 		"newFeature": true
 	},
-	"appid": "wx9fb285f29ecb0db0",
+	"appid": "wx951fc5643a019640",
 	"projectname": "Udacity-movie-wxapp",
-	"condition": {}
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "login",
+					"pathName": "pages/review-mine/review-mine"
+				}
+			]
+		}
+	}
 }

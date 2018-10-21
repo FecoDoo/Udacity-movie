@@ -32,4 +32,24 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 
+// GET 用来响应 URL： /movies 
+router.get('/movies', controllers.movies.list)
+
+// GET 用来响应 URL：/movie?movie_id=movie_id
+router.get('/movie', controllers.movies.movie)
+
+// GET 用来响应 URL：/reviews?movie_id=movie_id
+router.get('/reviews', controllers.reviews.list)
+
+// GET 用来响应 URL: /reviews/all
+router.get('/reviews/all', controllers.reviews.all)
+
+router.post('/reviews/add', validationMiddleware, controllers.reviews.add)
+
+// 用来响应 URL ： /reviews/favour?review_id=review_id
+router.get('/reviews/favour', validationMiddleware, controllers.reviews.favour)
+
+router.get('/reviews/allFavour', validationMiddleware, controllers.reviews.allFavour)
+router.get('/reviews/mine', validationMiddleware, controllers.reviews.mine)
+
 module.exports = router

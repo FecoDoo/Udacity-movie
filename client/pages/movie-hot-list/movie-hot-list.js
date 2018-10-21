@@ -1,66 +1,38 @@
-// pages/movie-hot-list/movie-hot-list.js
+//index.js
+const qcloud = require('../../vendor/wafer2-client-sdk/index')
+const config = require('../../config')
+const utils = require('../../utils/util')
+
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    isLoading: false,
+    moviesList: [],
+    errorMsg: '',
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    qcloud.request({
+      url: config.service.hotMoviesUrl,
+      success: result => {
+        this.setData({
+          moviesList: result.data.data
+        })
+      },
+      fail: result => {
+        wx.showModal({ title: '返回错误', content: '请求失败', showCancel: false });
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  listClick: function(e) {
+    const _this = this
+    const movie = _this.data.moviesList[e.currentTarget.dataset.index]
+    let pageUrl = '../movie-detail/movie-detail?'
+    pageUrl += utils.createMovieParam(movie)
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.navigateTo({
+      url: pageUrl
+    })
   }
 })

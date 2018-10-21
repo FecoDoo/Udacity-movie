@@ -1,0 +1,20 @@
+/* components/person-info/person-info.wxss */
+.movie-image {
+  border-radius: 25px;
+  height: 40px;
+  width: 40px;
+  margin-right: 13px;
+}
+
+.person-info {
+  display: flex;
+  text-align: center;
+  padding-bottom: 16px;
+}
+
+.name {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}

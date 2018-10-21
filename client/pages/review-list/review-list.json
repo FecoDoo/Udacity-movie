@@ -1,1 +1,7 @@
-{}
+{
+  "navigationBarTitleText": "影评列表",
+  "usingComponents": {
+    "person-info": "/components/person-info/person-info",
+    "voice-block": "/components/voice-block/voice-block"
+  }
+}

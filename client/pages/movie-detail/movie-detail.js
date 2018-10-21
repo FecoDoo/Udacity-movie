@@ -1,66 +1,56 @@
-// pages/movie-detail/movie-detail.js
+const utils = require('../../utils/util.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    movie: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const movie = options;
+    this.setData({
+      movie
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  viewBtnClick: function(e) {
+    const _this = this
+    let pageUrl = `../review-list/review-list?`
+    pageUrl += utils.createMovieParam(_this.data.movie)
 
-  },
+    wx.navigateTo({
+      url: pageUrl
+    })
+  }, 
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  addBtnClick: function(e) {
+    const _this = this
+    let pageUrl = `../review-edit/review-edit?`
+    pageUrl += utils.createMovieParam(_this.data.movie)
 
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.showActionSheet({
+      itemList: ['文字', '音频'],
+      success: function(res) {
+        if(res.tapIndex == 0) {
+          wx.navigateTo({
+            url: pageUrl + 'editType=文字'
+          })
+        } else if (res.tapIndex == 1) {
+          wx.navigateTo({
+            url: pageUrl + 'editType=语音'
+          })
+        }
+      },
+      fail: function(res) {
+        console.log(res.errMsg)
+      }
+    })
   }
+
 })

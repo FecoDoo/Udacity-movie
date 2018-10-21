@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "movie-card": "/components/movie-card/movie-card",
+    "person-info": "/components/person-info/person-info",
+    "voice-block": "/components/voice-block/voice-block"
+  }
+}

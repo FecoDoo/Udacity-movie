@@ -1,0 +1,12 @@
+<!--movie-card.wxml-->
+<!--index.wxml-->
+<view class='card'>
+<view class="card-background"></view>
+<view class='card-image'>
+    <image mode='aspectFill' class='movie-image' src="{{ movie.image }}"></image>
+</view>
+<view class='card-description'>
+    <text class='title'>{{ movie.title }}</text>
+    <slot></slot>
+</view>
+</view>  

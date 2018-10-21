@@ -1,0 +1,16 @@
+<!-- pages/main-page/main-page.wxml -->
+<view class="container">
+  <image bindtap="posterClick" class="movie-poster" src="{{ movie.image }}" />
+  <text class="movie-name">{{ movie.title }}</text>
+  <person-info bindtap="personClick" name="{{ review.name + '给你推荐了一部电影' }}" imageUrl="{{ review.imageUrl }}" class="person-info"></person-info>
+  <view class="buttons">
+    <view class='view-button' bindtap="hotBtnClick">
+      <text class='fa fa-thumbs-o-up' />
+      <text>热门</text>
+    </view>
+    <view class='add-button' bindtap="mineBtnClick">
+      <text class='fa fa-user-o' />
+      <text>我的</text>
+    </view>
+  </view>
+</view>
