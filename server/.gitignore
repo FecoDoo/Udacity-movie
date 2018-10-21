@@ -2,7 +2,7 @@
 [Dd]esktop.ini
 Thumbs.db
 $RECYCLE.BIN/
-config.js
+
 
 # macOS
 .DS_Store
@@ -13,3 +13,5 @@ config.js
 
 # Node.js
 node_modules/
+
+config.js
