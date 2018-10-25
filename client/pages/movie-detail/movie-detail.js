@@ -19,7 +19,7 @@ Page({
     })
   },
 
-  viewBtnClick: function(e) {
+  getView: function(e) {
     let pageUrl = `../review-list/review-list?`
     pageUrl += utils.createMovieParam(this.data.movie)
 
@@ -28,7 +28,7 @@ Page({
     })
   }, 
 
-  addBtnClick: function(e) {
+  addView: function(e) {
     let pageUrl = `../review-edit/review-edit?`
     pageUrl += utils.createMovieParam(this.data.movie)
 

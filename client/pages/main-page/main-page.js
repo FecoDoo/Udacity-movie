@@ -28,7 +28,6 @@ Page({
         this.setData({
           review
         })
-        console.log(reviewList)
       },
       fail: res => {
         wx.showModal({ title: '返回错误', content: res, showCancel: false });
@@ -45,7 +44,6 @@ Page({
         this.setData({
           movie
         })
-		console.log('movie:',movie)
       },
       fail: res => {
         wx.showModal({ title: '返回错误', content: res, showCancel: false });

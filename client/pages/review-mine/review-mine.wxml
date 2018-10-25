@@ -1,31 +1,40 @@
 <!-- pages/review-mine/review-mine.wxml -->
 <view class="container">
-  <view class="auth-view" wx:if="{{ !userInfo }}">
-    <text class="auth-text">请先授权</text>
-    <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="onTapLogin">微信登陆</button>
-  </view>
-  <block wx:else>
-    <view class="list">
-      <view class='list-state' bindtap="switchList">
-        <text decode="{{true}}" class="list-name">{{ listname }} &nbsp;</text>
-        <text class="fa fa-angle-down"></text>
-      </view>
-      <block wx:for="{{ favourList }}" wx:key="{{ item.movie.id }}">
-        <view class="list-item" bindtap="listClick" data-index="{{ index }}">
-          <view class="info">
-            <view class='title'>{{ item.movie.title }}</view>
-            <text wx:if="{{item.review.dataType=='文字'}}" class='description'>
+    
+	<view wx:if="{{!userInfo}}">
+        <view class="unlogin-card">
+            <view class="unlogin-head"></view>
+            <view class="unlogin-info">
+                <view class="unlogin-text">未登录</view>
+                <view class="unlogin-tips">点击微信登录后可方便购物</view>
+            </view>
+        </view>
+        <button wx:if="{{loginType==0}}" class="unlogin-btn" open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+        <button wx:if="{{loginType==1}}" class="unlogin-btn" open-type='openSetting' bindopensetting="onTapLogin">授权登录</button>
+    </view>
+
+    <block wx:else>
+        <view class="list">
+            <view class='list-state' bindtap="switchList">
+                <text decode="{{true}}" class="list-name">{{ listname }} &nbsp;</text>
+                <text class="fa fa-angle-down"></text>
+            </view>
+            <block wx:for="{{ favourList }}" wx:key="{{ item.movie.id }}">
+                <view class="list-item" bindtap="listClick" data-index="{{ index }}">
+                    <view class="info">
+                        <view class='title'>{{ item.movie.title }}</view>
+                        <text wx:if="{{item.review.data_type==0}}" class='description'>
               {{ item.review.text }}
             </text>
-            <voice-block wx:if="{{ item.review.dataType=='语音' }}" voice="{{ item.review.duration }}">
-              <text class='fa fa-play-circle' />
-            </voice-block>
-            <person-info name="{{ item.review.name }}" imageUrl="{{ item.review.imageUrl }}"></person-info>
-          </view>
-          <image class='poster' mode='asceptFill' src="{{ item.movie.image }}"></image>
+                        <voice-block wx:if="{{ item.review.data_type==1 }}" voice="{{ item.review.duration }}">
+                            <text class='fa fa-play-circle' />
+                        </voice-block>
+                        <person-info name="{{ item.review.name }}" imageUrl="{{ item.review.imageUrl }}"></person-info>
+                    </view>
+                    <image class='poster' mode='asceptFill' src="{{ item.movie.image }}"></image>
+                </view>
+            </block>
         </view>
-      </block>
-    </view>
-    <view class='back-btn' bindtap="backHomeClick">回到首页</view>
-  </block>
+        <view class='back-btn' bindtap="backHomeClick">回到首页</view>
+    </block>
 </view>

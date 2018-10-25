@@ -2,7 +2,7 @@
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config.js')
 const utils = require('../../utils/util.js');
-
+const app = getApp()
 Page({
 
     /**
@@ -12,24 +12,27 @@ Page({
         listname: "收藏的影评",
         favourList: [],
         userInfo: null,
-        userID: ''
+        userID: '',
+		loginType: app.data.loginType
     },
 
     onLoad: function(options) {
-        //检查之前是否授权登陆过
-        getApp().checkSession({
-            success: ({
-                userInfo
-            }) => {
-                this.setData({
-                    userInfo: userInfo
-                })
-
-                //this.getAllFavour()
-            },
-            error: () => {}
-        })
+        
     },
+
+	onShow: function() {
+		// 同步授权状态
+		this.setData({
+			loginType: app.data.loginType
+		})
+		app.checkSession({
+			success: ({ userInfo }) => {
+				this.setData({
+					userInfo
+				})
+			}
+		})
+	},
 
     getAllFavour: function() {
         qcloud.request({
@@ -101,29 +104,24 @@ Page({
     },
 
     onTapLogin: function(e) {
-
-        console.log(e.detail.userInfo)
-        wx.login({
-            success: res => {
-                console.log(res)
-                this.setData({
-                    userID: res.code
-                })
-            },
-            fail: res => {
-                wx.showModal({
-                    title: '返回错误',
-                    content: res,
-                    showCancel: false
-                });
-            }
-        })
+		app.login({
+			success: ({ userInfo }) => {
+				this.setData({
+					userInfo,
+					loginType: app.data.loginType
+				})
+			},
+			error: () => {
+				this.setData({
+					loginType: app.data.loginType
+				})
+			}
+		})
     },
 
     backHomeClick: function(e) {
         wx.navigateBack({
             delta: getCurrentPages()
         })
-    }
-
+    },
 })

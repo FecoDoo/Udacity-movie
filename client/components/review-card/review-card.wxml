@@ -8,7 +8,7 @@
 
       <view class="review">
         <text class="placeholder">“</text>
-        <text wx:if="{{review.dataType=='文字'}}" class='description'>{{ review.text }}</text>
+        <text wx:if="{{review.data_type==0}}" class='description'>{{ review.text }}</text>
         <slot name="voice"></slot>
       </view>
 

@@ -5,13 +5,13 @@ const getLineNums = (blockHeight) => {
 
 const reviewKey = {
   review_id: "review_id",
-  movieId: "movieId",
+  movie_id: "movie_id",
   imageUrl: "imageUrl",
   name: "name",
-  dataType: "dataType",
+  data_type: "data_type",
   text: "text",
   voiceUrl: "voiceUrl",
-  userId: "userId",
+  user_id: "user_id",
   duration: "duration"
 }
 
@@ -26,13 +26,13 @@ const movieKey = {
 const getReviewOpt = (options) => {
   const review = {
     review_id: options[reviewKey.review_id],
-    movieId: options[reviewKey.movieId],
+    movie_id: options[reviewKey.movie_id],
     imageUrl: options[reviewKey.imageUrl],
     name: options[reviewKey.name],
-    dataType: options[reviewKey.dataType],
+    data_type: options[reviewKey.data_type],
     text: options[reviewKey.text],
     voiceUrl: options[reviewKey.voiceUrl],
-    userId: options[reviewKey.userId],
+    user_id: options[reviewKey.user_id],
     duration: options[reviewKey.duration]
   }
   return review

@@ -53,31 +53,28 @@ Page({
   },
 
   requestCallback: function (err, data) {
-    const _this = this
     console.log(err || data);
     if (err && err.error) {
       wx.showModal({ title: '返回错误', content: '请求失败：' + err.error.Message + '；状态码：' + err.statusCode, showCancel: false });
     } else if (err) {
       wx.showModal({ title: '请求出错', content: '请求出错：' + err + '；状态码：' + err.statusCode, showCancel: false });
     } else {
-      _this.uploadReview(_this.data.review)
+      this.uploadReview(this.data.review)
     }
   },
 
-  sendReviewBtnClick: function () {
-    const _this = this;
+  sendReviewBtnClick: function () {;
 
-    if(_this.data.review.dataType == '语音') {
-      _this.uploadVoice()
+    if(this.data.review.dataType == '语音') {
+      this.uploadVoice()
     } else {
-      _this.uploadReview(_this.data.review)
+      this.uploadReview(this.data.review)
     }
   },
 
-  uploadVoice: function() {
-    const _this = this;
+  uploadVoice: function() {;
 
-    var filePath = _this.data.review.voiceUrl
+    var filePath = this.data.review.voiceUrl
     var Key = utils.getFileName(filePath) // 这里指定上传的文件名
 
     cos.postObject({
@@ -88,11 +85,10 @@ Page({
       onProgress: function (info) {
         console.log(JSON.stringify(info));
       }
-    }, _this.requestCallback);
+    }, this.requestCallback);
   },
 
   uploadReview: function(review) {
-    const _this = this
 
     const uReview = review;
     uReview.voiceUrl = utils.getFileName(review.voiceUrl)
@@ -105,7 +101,7 @@ Page({
         wx.showToast({ title: '上传评论成功', icon: 'success', duration: 3000 });
 
         let pageUrl = `../review-list/review-list?`
-        pageUrl += utils.createMovieParam(_this.data.movie)
+        pageUrl += utils.createMovieParam(this.data.movie)
 
         wx.navigateTo({
           url: pageUrl
@@ -118,9 +114,8 @@ Page({
   },
 
   onTapVoice: function (e) {
-    const _this = this
     //播放音乐
-    this.innerAudioCTX.src = _this.data.review.voiceUrl
+    this.innerAudioCTX.src = this.data.review.voiceUrl
     this.innerAudioCTX.play()
   }
 

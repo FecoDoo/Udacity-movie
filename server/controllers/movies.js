@@ -5,6 +5,7 @@ module.exports = {
     list: async ctx => {
         ctx.state.data = await DB.query("SELECT * FROM movies;")
     },
+	
     movie: async ctx => {
         const movie_id = ctx.request.query['movie_id']
         if (!movie_id) {
