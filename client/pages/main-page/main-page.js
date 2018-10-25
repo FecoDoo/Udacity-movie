@@ -17,38 +17,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // //获取影评，在获取对应的热门电影
-    // qcloud.request({
-    //   //url: config.service.allReviewsUrl,
-    //   url: config.service.movie+'3',
-    //   success: result => {
-    //     const reviewList = result.data.data
-    //     // const review = reviewList[Math.floor(Math.random() * reviewList.length)]
-    //     // this.getMovie(review.movieId)
+    //获取影评，在获取对应的热门电影
+    qcloud.request({
+      url: config.service.allReviewsUrl,
+      success: res => {
+        const reviewList = res.data.data
+        const review = reviewList[Math.floor(Math.random() * reviewList.length)]
+        this.getMovie(review.movie_id)
         
-    //     // this.setDat
-    //     //   review
-    //     // })
-    //     console.log(reviewList)
-    //   },
-    //   fail: result => {
-    //     wx.showModal({ title: '返回错误', content: '请求失败', showCancel: false });
-    //   }
-    // })
+        this.setData({
+          review
+        })
+        console.log(reviewList)
+      },
+      fail: res => {
+        wx.showModal({ title: '返回错误', content: res, showCancel: false });
+      }
+    })
   },
 
-  getMovie: function(movieId) {
+  getMovie: function(movie_id) {
     qcloud.request({
-      url: config.service.movie + movieId,
-      success: result => {
-        const movie = result.data.data[0]
+      url: config.service.movie + movie_id,
+      success: res => {
+        const movie = res.data.data[0]
         
         this.setData({
           movie
         })
+		console.log('movie:',res)
       },
-      fail: result => {
-        wx.showModal({ title: '返回错误', content: '请求失败', showCancel: false });
+      fail: res => {
+        wx.showModal({ title: '返回错误', content: res, showCancel: false });
       }
     })
   },

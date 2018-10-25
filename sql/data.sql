@@ -1,21 +1,29 @@
 CREATE TABLE `reviews` (
   `imageUrl` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `duration` varchar(255) NOT NULL,
+  `duration` varchar(255) DEFAULT NULL,
   `voiceUrl` varchar(255) DEFAULT NULL,
   `type` boolean NOT NULL,
   `text` TEXT CHARACTER SET utf8 DEFAULT NULL,
   `createTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `userId` int(11) NOT NULL,
-  `movieId` int(11) NOT NULL,
-  PRIMARY KEY (`userId`,`movieId`)
+  `user_id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`movie_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `reviews` (`imageUrl`,`name`,`type`,`text`,`user_id`,`movie_id`) VALUES
+('https://udacity-fecodoo-1254368307.cos.ap-shanghai.myqcloud.com/p1461851991.jpg','机器人总动员','0','很棒的电影','071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi','13'),
+('https://udacity-fecodoo-1254368307.cos.ap-shanghai.myqcloud.com/p2517753454.jpg','复仇者联盟3：无限战争','0','很差的电影','071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi','1');
+
 CREATE TABLE `user_review` (
-  `userId` int(11) NOT NULL,
-  `reviewId` int(11) NOT NULL,
-  PRIMARY KEY (`userId`,`reviewId`)
+  `user_id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`movie_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `user_review` (`user_id`,`movie_id`) VALUES 
+('071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi','13'),
+('071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi','1');
 
 CREATE TABLE `movies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -27,7 +35,7 @@ CREATE TABLE `movies` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET @IMAGE_BASE_URL = "udacity-wxapp.oss-cn-shenzhen.aliyuncs.com";
+SET @IMAGE_BASE_URL = "https://udacity-fecodoo-1254368307.cos.ap-shanghai.myqcloud.com";
 
 INSERT INTO `movies` (`id`, `image`, `title`, `category`, `description`) VALUES
 (1, CONCAT(@IMAGE_BASE_URL, 'p2517753454.jpg'), '复仇者联盟3：无限战争', '动作 / 科幻 / 奇幻 / 冒险', '《复仇者联盟3：无限战争》是漫威电影宇宙10周年的历史性集结，将为影迷们带来史诗版的终极对决。面对灭霸突然发起的闪电袭击，复仇者联盟及其所有超级英雄盟友必须全力以赴，才能阻止他对全宇宙造成毁灭性的打击。'),

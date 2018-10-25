@@ -5,115 +5,125 @@ const utils = require('../../utils/util.js');
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    listname: "收藏的影评",
-    favourList: [],
-    userInfo: null
-  },
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        listname: "收藏的影评",
+        favourList: [],
+        userInfo: null,
+        userID: ''
+    },
 
-  onLoad: function(options) {
-    // //检查之前是否授权登陆过
-    // getApp().checkSession({
-    //   success: ({userInfo})=> {
-    //     this.setData({
-    //       userInfo: userInfo
-    //     })
+    onLoad: function(options) {
+        //检查之前是否授权登陆过
+        getApp().checkSession({
+            success: ({
+                userInfo
+            }) => {
+                this.setData({
+                    userInfo: userInfo
+                })
 
-    //     this.getAllFavour()
-    //   },
-    //   error: () => {}
-    // })
-    qcloud.login({
-      fail: res=> {
-        console.log(res)
-      }
-    })
-
-  },
-
-  getAllFavour: function() {
-    qcloud.request({
-      url: config.service.allFavourUrl,
-      success: result => {
-        this.setData({
-          favourList: result.data.data,
-          listname: "收藏的影评"
+                //this.getAllFavour()
+            },
+            error: () => {}
         })
-      },
-      fail: result => {
-        wx.showModal({ title: '返回错误', content: '请求失败', showCancel: false });
-      }
-    })
-  },
+    },
 
-  listClick: function(e) {
-    const _this = this
-    const item = _this.data.favourList[e.currentTarget.dataset.index]
-    let pageUrl = '../review-detail/review-detail?'
-    pageUrl += utils.createReviewParam(item.review)
-    pageUrl += utils.createMovieParam(item.movie)
-
-    wx.navigateTo({
-      url: pageUrl
-    })
-  },
-
-  switchList: function() {
-    const _this = this
-
-    wx.showActionSheet({
-      itemList: ['收藏的影评', '我发布的影评'],
-      success: function (res) {
-        if (res.tapIndex == 0) {
-          _this.getAllFavour()
-        } else if (res.tapIndex == 1) {
-          _this.getAllMine()
-        }
-      },
-      fail: function (res) {
-        console.log(res.errMsg)
-      }
-    })
-  },
-
-  getAllMine: function() {
-    const _this = this
-
-    qcloud.request({
-      url: config.service.mineReviewsUrl,
-      success: result => {
-        this.setData({
-          favourList: result.data.data,
-          listname: "我发表的评论"
+    getAllFavour: function() {
+        qcloud.request({
+            url: config.service.allFavourUrl,
+            success: result => {
+                this.setData({
+                    favourList: result.data.data,
+                    listname: "收藏的影评"
+                })
+            },
+            fail: result => {
+                wx.showModal({
+                    title: '返回错误',
+                    content: '请求失败',
+                    showCancel: false
+                });
+            }
         })
-      },
-      fail: result => {
-        wx.showModal({ title: '返回错误', content: '请求失败', showCancel: false });
-      }
-    })
-  },
+    },
 
-  onTapLogin: function(e) {
-    // qcloud.setLoginUrl(config.service.loginUrl)
+    listClick: function(e) {
 
-    // getApp().doQcloudLogin({
-    //   success: ({userInfo}) => {
-    //     this.setData({
-    //       userInfo
-    //     })
-    //     console.log(userInfo)
-    //   }
-    // })
-    console.log(e.detail.userInfo)
-  },
+        const item = this.data.favourList[e.currentTarget.dataset.index]
+        let pageUrl = '../review-detail/review-detail?'
+        pageUrl += utils.createReviewParam(item.review)
+        pageUrl += utils.createMovieParam(item.movie)
 
-  backHomeClick: function(e) {
-    wx.navigateBack({
-      delta: 5
-    })
-  }
+        wx.navigateTo({
+            url: pageUrl
+        })
+    },
+
+    switchList: function() {
+
+        wx.showActionSheet({
+            itemList: ['收藏的影评', '我发布的影评'],
+            success: function(res) {
+                if (res.tapIndex == 0) {
+                    this.getAllFavour()
+                } else if (res.tapIndex == 1) {
+                    this.getAllMine()
+                }
+            },
+            fail: function(res) {
+                console.log(res.errMsg)
+            }
+        })
+    },
+
+    getAllMine: function() {
+
+
+        qcloud.request({
+            url: config.service.mineReviewsUrl,
+            success: result => {
+                this.setData({
+                    favourList: result.data.data,
+                    listname: "我发表的评论"
+                })
+            },
+            fail: result => {
+                wx.showModal({
+                    title: '返回错误',
+                    content: '请求失败',
+                    showCancel: false
+                });
+            }
+        })
+    },
+
+    onTapLogin: function(e) {
+
+        console.log(e.detail.userInfo)
+        wx.login({
+            success: res => {
+                console.log(res)
+                this.setData({
+                    userID: res.code
+                })
+            },
+            fail: res => {
+                wx.showModal({
+                    title: '返回错误',
+                    content: res,
+                    showCancel: false
+                });
+            }
+        })
+    },
+
+    backHomeClick: function(e) {
+        wx.navigateBack({
+            delta: getCurrentPages()
+        })
+    }
 
 })
