@@ -20,9 +20,8 @@ Page({
   },
 
   viewBtnClick: function(e) {
-    const _this = this
     let pageUrl = `../review-list/review-list?`
-    pageUrl += utils.createMovieParam(_this.data.movie)
+    pageUrl += utils.createMovieParam(this.data.movie)
 
     wx.navigateTo({
       url: pageUrl
@@ -30,9 +29,8 @@ Page({
   }, 
 
   addBtnClick: function(e) {
-    const _this = this
     let pageUrl = `../review-edit/review-edit?`
-    pageUrl += utils.createMovieParam(_this.data.movie)
+    pageUrl += utils.createMovieParam(this.data.movie)
 
     wx.showActionSheet({
       itemList: ['文字', '音频'],

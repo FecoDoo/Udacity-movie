@@ -45,7 +45,7 @@ Page({
         this.setData({
           movie
         })
-		console.log('movie:',res)
+		console.log('movie:',movie)
       },
       fail: res => {
         wx.showModal({ title: '返回错误', content: res, showCancel: false });
@@ -54,8 +54,7 @@ Page({
   },
 
   posterClick: function(e) {
-    const _this = this
-    const movie = _this.data.movie
+    const movie = this.data.movie
     let pageUrl = '../movie-detail/movie-detail?'
     pageUrl += utils.createMovieParam(movie)
 
@@ -77,10 +76,9 @@ Page({
   },
 
   personClick: function(e) {
-    const _this = this
     let pageUrl = '../review-detail/review-detail?'
-    pageUrl += utils.createReviewParam(_this.data.review)
-    pageUrl += utils.createMovieParam(_this.data.movie)
+    pageUrl += utils.createReviewParam(this.data.review)
+    pageUrl += utils.createMovieParam(this.data.movie)
 
     wx.navigateTo({
       url: pageUrl
