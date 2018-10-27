@@ -72,11 +72,11 @@ Page({
             success: function(res) {
                 if (res.tapIndex == 0) {
                     wx.navigateTo({
-                        url: pageUrl + 'editType=文字'
+                        url: pageUrl + 'editType=0'
                     })
                 } else if (res.tapIndex == 1) {
                     wx.navigateTo({
-                        url: pageUrl + 'editType=语音'
+                        url: pageUrl + 'editType=1'
                     })
                 }
             },
@@ -88,7 +88,7 @@ Page({
 
     onTapVoice: function() {
         const url = config.service.mp3Host + this.data.review.voiceUrl
-        console.log('url:'+url)
+        console.log('url:' + url)
 
         //播放音乐
         this.innerAudioCTX.src = url

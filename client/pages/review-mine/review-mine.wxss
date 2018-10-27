@@ -1,86 +1,89 @@
 /* pages/review-mine/review-mine.wxss */
+
 page {
-  height: 100%;
-  background-color: rgb(247, 249, 251);
+    height: 100%;
+    background-color: rgb(247, 249, 251);
 }
 
 .list {
-  margin-bottom: 70px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    margin-bottom: 70px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .list-item {
-  display: flex;
-  flex: 1;
-  height: 320rpx;
-  width: 90%;
-  margin: 20rpx;
-  flex-direction: row-reverse;
-  justify-content: center;
-  border: 1px solid rgb(207, 207, 207);
-  margin-bottom: 40rpx;
+    display: flex;
+    flex: 1;
+    height: 320rpx;
+    width: 90%;
+    margin: 20rpx;
+    flex-direction: row-reverse;
+    justify-content: center;
+    border: 1px solid rgb(207, 207, 207);
+    margin-bottom: 40rpx;
 }
 
 .info {
-  height: 100%;
-  flex: 4;
-  margin: 20rpx;
-  margin-left: 40rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+    height: 100%;
+    flex: 4;
+    margin: 20rpx;
+    margin-left: 40rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .description {
-  line-height: 1.5em;
-  font-size: 0.7em;
-  overflow:hidden;
-  flex: 1;
+    line-height: 1.5em;
+    font-size: 0.7em;
+    overflow: hidden;
+    flex: 1;
 }
 
 .title {
-  font-size: 38rpx;
-  font-weight: bold;
-  margin-bottom: 20rpx;
+    font-size: 38rpx;
+    font-weight: bold;
+    margin-bottom: 20rpx;
 }
 
 .back-btn {
-  background-color: white;
-  border-top: 1px solid rgb(207, 207, 207);
-  width: 100%;
-  color: rgb(124, 151, 172);
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
+    background-color: white;
+    border-top: 1px solid rgb(207, 207, 207);
+    width: 100%;
+    color: rgb(124, 151, 172);
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
 }
 
 .list-state {
-  height: 150rpx;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgb(240, 159, 126);
+    height: 150rpx;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(240, 159, 126);
 }
 
 .poster {
-  height: 100%;
-  flex: 2;
+    height: 100%;
+    flex: 2;
 }
 
 .auth-view {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.auth-text,
-.login-btn {
-  margin: 20px;
+.auth-text, .login-btn {
+    margin: 20px;
 }
 
+.unlogin-btn{
+	margin: 100px;
+}

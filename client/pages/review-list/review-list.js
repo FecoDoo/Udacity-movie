@@ -35,12 +35,12 @@ Page({
                 });
             }
         })
-		
+
     },
 
     backHomeClick: function(e) {
         wx.navigateBack({
-            delta: 50
+            delta: 5
         })
     },
 

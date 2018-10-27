@@ -20,7 +20,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        isEditText: false,
+        isEditText: 0,
         isFinished: false,
         recording: false,
         userInfo: null,
@@ -33,8 +33,8 @@ Page({
     onLoad: function(options) {
         const movie = utils.getMovieOpt(options)
 
-        this.setData({
-            isEditText: options.editType == '文字',
+		this.setData({
+            isEditText: options.editType,
             movie
         })
 
@@ -89,19 +89,19 @@ Page({
 
     onTapLogin: function(e) {
         this.setData({
-            userInfo
+            userInfo: e.detail.userInfo
         })
     },
 
     createReviewData: function() {
         const review = {
-            movieId: this.data.movie.id,
+            movie_id: this.data.movie.id,
             imageUrl: this.data.userInfo.avatarUrl,
             name: this.data.userInfo.nickName,
-            dataType: this.data.isEditText ? '文字' : '语音',
+            data_type: this.data.isEditText,
             text: this.data.inputText,
             voiceUrl: this.data.tempFilePath,
-            userId: this.data.userInfo.openId,
+            user_id: this.data.userInfo.openId,
             duration: this.data.duration
         }
         return review
@@ -131,7 +131,6 @@ Page({
         let pageUrl = '../review-preview/review-preview?'
         pageUrl += utils.createReviewParam(this.createReviewData())
         pageUrl += utils.createMovieParam(this.data.movie)
-        console.log(pageUrl)
 
         wx.navigateTo({
             url: pageUrl

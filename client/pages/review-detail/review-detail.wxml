@@ -1,7 +1,7 @@
 <!-- pages/review-detail.wxml -->
 <view class="container">
     <review-card review="{{ review }}" movie="{{ movie }}">
-        <voice-block slot="voice" bindtap="onTapVoice" wx:if="{{ review.dataType=='语音' }}" voice="{{ review.duration }}">
+        <voice-block slot="voice" bindtap="onTapVoice" wx:if="{{ review.data_type==1 }}" voice="{{ review.duration }}">
             <text class='fa fa-play-circle' />
         </voice-block>
         <view slot="buttons" class="buttons">

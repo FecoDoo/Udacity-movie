@@ -1,12 +1,12 @@
 <!--index.wxml-->
 <view class="container">
-  <block wx:for="{{ moviesList }}" wx:key="{{ id }}">
-    <view class="list-item" data-index="{{index}}" bindtap="listClick">
-      <view class="description">      
-        <view class='title'>{{ item.title }}</view>
-        <view class='category'>类型：{{ item.category }}</view> 
-      </view>
-      <image class='poster' mode='asceptFill' src="{{ item.image }}"></image>  
-    </view>
-  </block>
+    <block wx:for="{{ moviesList }}" wx:key="{{ id }}">
+        <view class="list-item" data-index="{{index}}" bindtap="listClick">
+            <view class="description">
+                <view class='title'>{{ item.title }}</view>
+                <view class='category'>类型：{{ item.category }}</view>
+            </view>
+            <image class='poster' mode='asceptFill' src="{{ item.image }}"></image>
+        </view>
+    </block>
 </view>

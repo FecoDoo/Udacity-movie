@@ -5,11 +5,11 @@
         <view bindtap="listClick" data-index="{{ index }}" class="list-item" wx:for="{{ reviewList }}" wx:key="{{ movieId }}">
             <person-info name="{{ item.name }}" imageUrl="{{ item.imageUrl }}"></person-info>
 
-            <view class='review' wx:if="{{ item.dataType == '文字'}}">
+            <view class='review' wx:if="{{ item.data_type == 0}}">
                 <text> {{ item.text }} </text>
             </view>
 
-            <voice-block class='voice' voice="{{ item.duration }}" wx:if="{{ item.dataType == '语音' }}">
+            <voice-block class='voice' voice="{{ item.duration }}" wx:if="{{ item.data_type == 1 }}">
                 <text class='fa fa-play-circle' />
             </voice-block>
         </view>

@@ -31,7 +31,6 @@ Page({
 
     listClick: function(e) {
         const movie = this.data.moviesList[e.currentTarget.dataset.index]
-		console.log(movie)
         let pageUrl = '../movie-detail/movie-detail?'
         pageUrl += utils.createMovieParam(movie)
 

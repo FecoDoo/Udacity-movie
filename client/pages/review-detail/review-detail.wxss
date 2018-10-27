@@ -1,41 +1,41 @@
 /* pages/review-detail.wxss */
+
 page {
-  height: 100%;
-  background-color: gainsboro;
+    height: 100%;
+    background-color: gainsboro;
 }
 
 .container {
-  height: 100%;
+    height: 100%;
 }
 
 review-card {
-  height: 80%;
-  width: 100%;
+    height: 80%;
+    width: 100%;
 }
 
 .fa {
-  font-size: 1rem;
-  margin-right: 4px;
-  vertical-align: middle;
-  line-height: normal;
+    font-size: 1rem;
+    margin-right: 4px;
+    vertical-align: middle;
+    line-height: normal;
 }
 
 .buttons {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
 }
 
-.view-button, 
-.add-button {
-  font-size: 0.8em;
-  color: rgb(124, 151, 172);
-  display: flex;
-  border: 1px solid rgb(207, 207, 207);
-  padding: 8px;
-  padding-right: 16px;
-  padding-left: 16px;
-  border-radius: 8px;
-  text-align: center;
+.view-button, .add-button {
+    font-size: 0.8em;
+    color: rgb(124, 151, 172);
+    display: flex;
+    border: 1px solid rgb(207, 207, 207);
+    padding: 8px;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-radius: 8px;
+    text-align: center;
 }

@@ -1,9 +1,9 @@
-  page {
+page {
     height: 100%;
     background-color: rgb(248, 248, 248);
-  }
+}
 
-  .list-item {
+.list-item {
     display: flex;
     flex: 1;
     height: 300rpx;
@@ -13,9 +13,9 @@
     justify-content: center;
     border: 1px solid rgb(207, 207, 207);
     margin-bottom: 40rpx;
-  }
+}
 
-  .description {
+.description {
     height: 100%;
     flex: 4;
     margin: 20rpx;
@@ -23,18 +23,18 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-  }
+}
 
-  .title {
+.title {
     font-size: 38rpx;
     font-weight: bold;
-  }
+}
 
-  .category {
+.category {
     font-size: 32rpx;
-  }
+}
 
-  .poster {
+.poster {
     height: 100%;
     flex: 2;
-  }
+}

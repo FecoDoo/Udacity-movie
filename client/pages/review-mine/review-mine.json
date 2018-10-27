@@ -1,7 +1,7 @@
 {
-  "navigationBarTitleText": "我的",
-  "usingComponents": {
-    "person-info": "/components/person-info/person-info",
-    "voice-block": "/components/voice-block/voice-block"
-  }
+	"navigationBarTitleText": "我的",
+	"usingComponents": {
+		"person-info": "/components/person-info/person-info",
+		"voice-block": "/components/voice-block/voice-block"
+	}
 }

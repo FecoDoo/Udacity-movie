@@ -13,26 +13,31 @@ Page({
         favourList: [],
         userInfo: null,
         userID: '',
-		loginType: app.data.loginType
+        loginType: app.data.loginType
     },
 
     onLoad: function(options) {
-        
+
     },
 
-	onShow: function() {
-		// 同步授权状态
-		this.setData({
-			loginType: app.data.loginType
-		})
+    onShow: function() {
+        // 同步授权状态
+        this.setData({
+            loginType: app.data.loginType
+        })
+
 		app.checkSession({
-			success: ({ userInfo }) => {
+			success: ({
+				userInfo
+			}) => {
 				this.setData({
-					userInfo
+					userInfo: userInfo
 				})
-			}
+			},
+			error: () => { }
 		})
-	},
+		//this.getAllFavour()
+    },
 
     getAllFavour: function() {
         qcloud.request({
@@ -104,16 +109,12 @@ Page({
     },
 
     onTapLogin: function(e) {
-		app.login({
+		qcloud.setLoginUrl(config.service.loginUrl)
+
+		app.doQcloudLogin({
 			success: ({ userInfo }) => {
 				this.setData({
-					userInfo,
-					loginType: app.data.loginType
-				})
-			},
-			error: () => {
-				this.setData({
-					loginType: app.data.loginType
+					userInfo
 				})
 			}
 		})

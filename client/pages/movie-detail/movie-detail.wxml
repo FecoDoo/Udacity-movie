@@ -1,16 +1,18 @@
 <!--index.wxml-->
-<view class="container">  
-  <movie-card movie="{{movie}}">
-    <view class="card-content">
-      <text class='description'>{{ movie.description }}</text>
-      <view class="buttons">
-        <view class='view-button' bindtap="getView">
-            <text class='fa fa-eye'/>  <text>查看影评</text>
+<view class="container">
+    <movie-card movie="{{movie}}">
+        <view class="card-content">
+            <text class='description'>{{ movie.description }}</text>
+            <view class="buttons">
+                <view class='view-button' bindtap="getView">
+                    <text class='fa fa-eye' />
+                    <text>查看影评</text>
+                </view>
+                <view class='add-button' bindtap="addView">
+                    <text class='fa fa-comments' />
+                    <text>添加影评</text>
+                </view>
+            </view>
         </view>
-        <view class='add-button' bindtap="addView">
-            <text class='fa fa-comments'/>  <text>添加影评</text>
-        </view>
-      </view>
-    </view>
-  </movie-card>
+    </movie-card>
 </view>
