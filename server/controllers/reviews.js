@@ -36,10 +36,10 @@ module.exports = {
 
     favour: async ctx => {
         const body = ctx.request.query
-        const movie_id = body.movie_id
+        const review_id = body.review_id
         let user_id = ctx.state.$wxInfo.userinfo.openId
 
-        ctx.state.data = await DB.query(`INSERT INTO user_review(movie_id, user_id) VALUES (?, ?)`, [movie_id, user_id])
+        ctx.state.data = await DB.query(`INSERT INTO user_review(review_id, user_id) VALUES (?, ?)`, [review_id, user_id])
     },
 
     mine: async ctx => {
@@ -66,7 +66,7 @@ module.exports = {
 
         let reviews = []
         for (const item of user_review) {
-            const review = await DB.query(`SELECT * FROM reviews WHERE movie_id = ${item.movie_id};`)
+            const review = await DB.query(`SELECT * FROM reviews WHERE review_id = ${item.review_id};`)
             reviews.push(review[0])
         }
 

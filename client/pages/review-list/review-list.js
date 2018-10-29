@@ -14,17 +14,18 @@ Page({
     },
 
     onLoad: function(options) {
-        const movie = utils.getMovieOpt(options)
+        var _this = this
+		const movie = utils.getMovieOpt(options)
 
-        this.setData({
+		_this.setData({
             movie
         })
-
         qcloud.request({
+			
             url: config.service.reviewsUrl + movie.id,
             success: result => {
-                this.setData({
-                    reviewList: result.data.data
+				this.setData({
+					reviewList: result.data.data
                 })
             },
             fail: result => {
@@ -35,7 +36,6 @@ Page({
                 });
             }
         })
-
     },
 
     backHomeClick: function(e) {
@@ -45,11 +45,11 @@ Page({
     },
 
     listClick: function(e) {
-        const review = this.data.reviewList[e.currentTarget.dataset.index]
-        let pageUrl = '../review-detail/review-detail?'
+        var _this = this
+		const review = this.data.reviewList[e.currentTarget.dataset.index]
+		let pageUrl = '../review-detail/review-detail?'
         pageUrl += utils.createReviewParam(review)
-        pageUrl += utils.createMovieParam(this.data.movie)
-
+        pageUrl += utils.createMovieParam(_this.data.movie)
         wx.navigateTo({
             url: pageUrl
         })

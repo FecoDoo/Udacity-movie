@@ -7,29 +7,36 @@ const UNAUTHORIZED = 1
 const AUTHORIZED = 2
 
 App({
-    onLaunch: function() {
+	onLaunch: function() {
 		qcloud.setLoginUrl(config.service.loginUrl)
-    },
+	},
 	data: {
-		loginType: UNPROMPTED
+		loginType: UNPROMPTED,
 	},
 	login({ success, error }) {
 		wx.getSetting({
 			success: res => {
 				if (res.authSetting['scope.userInfo'] === false) {
-					this.data.loginType = UNAUTHORIZED
+					this.loginType=UNAUTHORIZED
 					// 已拒绝授权
 					wx.showModal({
 						title: '提示',
 						content: '请授权我们获取您的用户信息',
-						showCancel: false
+						showCancel: false,
+						success: () => {
+							wx.openSetting({
+								success: res => {
+									if (res.authSetting['scope.userInfo'] === true){
+										this.doQcloudLogin({ success, error })
+									}
+								}
+							})
+						}
 					})
 					error && error()
 				} else {
-					this.data.loginType = AUTHORIZED
+					this.loginType=AUTHORIZED
 					this.doQcloudLogin({ success, error })
-					console.log(this.data.userInfo)
-					console.log(this.data.loginType)
 				}
 			}
 		})
@@ -43,18 +50,17 @@ App({
 					success && success({
 						userInfo
 					})
-					console.log(result)
 				} else {
 					// 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
 					this.getUserInfo({ success, error })
-					
 				}
 			},
-			fail: result => {
+			fail: () => {
 				error && error()
 			}
 		})
 	},
+
 	getUserInfo({ success, error }) {
 		if (userInfo) return userInfo
 		qcloud.request({
@@ -64,6 +70,7 @@ App({
 				let data = result.data
 				if (!data.code) {
 					let userInfo = data.data
+					
 					success && success({
 						userInfo
 					})
@@ -76,6 +83,7 @@ App({
 			}
 		})
 	},
+
 	checkSession({ success, error }) {
 		if (userInfo) {
 			return success && success({
@@ -86,7 +94,8 @@ App({
 			success: () => {
 				this.getUserInfo({
 					success: res => {
-						userInfo = res.userInfo
+						let userInfo = res.userInfo
+						
 						success && success({
 							userInfo
 						})

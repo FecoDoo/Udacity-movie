@@ -29,6 +29,6 @@
                 </view>
             </block>
         </view>
-        <view class='back-btn' bindtap="backHomeClick">回到首页</view>
+        <view class='back-btn' bindtap="backHomeClick">返回</view>
     </block>
 </view>

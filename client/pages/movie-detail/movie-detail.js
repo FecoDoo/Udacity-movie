@@ -35,11 +35,12 @@ Page({
         wx.showActionSheet({
             itemList: ['文字', '音频'],
             success: function(res) {
-                if (res.tapIndex == 0) {
+				console.log(res)
+				if (res.tapIndex == 0) {
                     wx.navigateTo({
                         url: pageUrl + 'editType=0'
                     })
-                } else if (res.tapIndex == 1) {
+				} else if (res.tapIndex == 1) {
                     wx.navigateTo({
                         url: pageUrl + 'editType=1'
                     })

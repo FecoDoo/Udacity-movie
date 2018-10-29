@@ -2,7 +2,7 @@
 <view class="container">
     <view class='placeholder'></view>
     <view class='list'>
-        <view bindtap="listClick" data-index="{{ index }}" class="list-item" wx:for="{{ reviewList }}" wx:key="{{ movieId }}">
+        <view bindtap="listClick" data-index="{{ index }}" class="list-item" wx:for="{{ reviewList }}" wx:key="{{ movie_id }}">
             <person-info name="{{ item.name }}" imageUrl="{{ item.imageUrl }}"></person-info>
 
             <view class='review' wx:if="{{ item.data_type == 0}}">

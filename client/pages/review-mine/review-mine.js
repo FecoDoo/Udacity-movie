@@ -21,8 +21,8 @@ Page({
     },
 
     onShow: function() {
-        // 同步授权状态
-        this.setData({
+		// 同步授权状态
+		this.setData({
             loginType: app.data.loginType
         })
 
@@ -33,17 +33,25 @@ Page({
 				this.setData({
 					userInfo: userInfo
 				})
+				console.log('Success')
+				this.getAllFavour()
 			},
-			error: () => { }
+			error: () => {
+				wx.showModal({
+					title: '未登录',
+					content: '请先登陆',
+					showCancel: false
+				});
+			}
 		})
-		//this.getAllFavour()
+		
     },
 
     getAllFavour: function() {
-        qcloud.request({
+		qcloud.request({
             url: config.service.allFavourUrl,
             success: result => {
-                this.setData({
+				this.setData({
                     favourList: result.data.data,
                     listname: "收藏的影评"
                 })
@@ -54,6 +62,7 @@ Page({
                     content: '请求失败',
                     showCancel: false
                 });
+				console.log(result)
             }
         })
     },
@@ -71,7 +80,6 @@ Page({
     },
 
     switchList: function() {
-
         wx.showActionSheet({
             itemList: ['收藏的影评', '我发布的影评'],
             success: function(res) {
@@ -88,7 +96,6 @@ Page({
     },
 
     getAllMine: function() {
-
 
         qcloud.request({
             url: config.service.mineReviewsUrl,
@@ -109,15 +116,14 @@ Page({
     },
 
     onTapLogin: function(e) {
-		qcloud.setLoginUrl(config.service.loginUrl)
-
-		app.doQcloudLogin({
-			success: ({ userInfo }) => {
-				this.setData({
-					userInfo
-				})
-			}
-		})
+        app.login({
+            success: ({ userInfo }) => {
+                this.setData({
+                    userInfo
+                })
+            }
+        })
+		this.getAllFavour()
     },
 
     backHomeClick: function(e) {

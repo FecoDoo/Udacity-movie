@@ -7,10 +7,10 @@
   <block wx:else>
     <movie-card movie="{{movie}}">
       <view class="card-content">
-        <textarea wx:if="{{isEditText}}" class="input" placeholder-class="review-placeholder" 
+        <textarea wx:if="{{isEditText == 0}}" class="input" placeholder-class="review-placeholder" 
                   placeholder="输入影评内容" auto-focus maxlength='255'
                   bindinput='onInput'></textarea>
-        <view wx:if="{{!isEditText}}" class="record">
+        <view wx:if="{{isEditText == 1}}" class="record">
           <text wx:if="{{recording}}" class="recording">正在录音中...</text>
           <view class="buttons">
             <view wx:if="{{!recording}}" class='view-button' bindtap="onTapRecord">

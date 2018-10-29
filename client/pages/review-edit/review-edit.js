@@ -37,7 +37,7 @@ Page({
             isEditText: options.editType,
             movie
         })
-
+		console.log(this.data)
         //检查之前是否授权登陆过
         app.checkSession({
             success: ({
@@ -49,7 +49,6 @@ Page({
             },
             error: () => {}
         })
-
         recorderManager.onStart(() => {
             console.log('recorder start')
             this.setData({
@@ -108,9 +107,9 @@ Page({
     },
 
     isDataEmpty() {;
-        if (!this.data.isEditText && this.data.tempFilePath != '') {
+        if (this.data.isEditText == 1 && this.data.tempFilePath != '') {
             return false
-        } else if (this.data.isEditText && this.data.inputText != '') {
+        } else if (this.data.isEditText == 0 && this.data.inputText != '') {
             return false
         } else {
             return true

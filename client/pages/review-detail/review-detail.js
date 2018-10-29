@@ -9,12 +9,12 @@ Page({
      * 页面的初始数据
      */
     data: {
-        movie: {},
-        review: {},
+        movie: [],
+        review: [],
         userInfo: null
     },
     onLoad: function(options) {
-        //创建 ctx for 播放器
+		//创建 ctx for 播放器
         this.innerAudioCTX = wx.createInnerAudioContext()
 
         const movie = utils.getMovieOpt(options)
@@ -24,43 +24,40 @@ Page({
             movie,
             review
         })
-
-        app.checkSession({
-            success: ({
-                userInfo
-            }) => {
-                this.setData({
-                    userInfo: userInfo
-                })
-            },
-            error: () => {}
-        })
+		app.checkSession({
+			success: ({ userInfo }) => {
+				this.setData({
+					userInfo
+				})
+			}
+		})
     },
 
     favourReview: function(e) {
-
-        //如果未登陆就跳转到登陆
-        if (!this.data.userInfo) {
-            wx.navigateTo({
-                url: '../review-mine/review-mine'
-            })
-        }
-
-        qcloud.request({
-            url: config.service.favourReviewUrl + this.data.review.review_id,
-            success: result => {
-                wx.showToast({
-                    title: '收藏成功'
-                })
-            },
-            fail: result => {
-                wx.showModal({
-                    title: '返回错误',
-                    content: '请求失败',
-                    showCancel: false
-                });
-            }
-        })
+		var _this = this
+		if (!_this.data.userInfo) {
+			wx.navigateTo({
+				url: '../review-mine/review-mine'
+			})
+		} else {
+			const id = _this.data.review.review_id
+			qcloud.request({
+				url: config.service.favourReviewUrl + id,
+				success: result => {
+					wx.showToast({
+						title: '收藏成功'
+					})
+				},
+				fail: result => {
+					wx.showModal({
+						title: '返回错误',
+						content: '',
+						showCancel: false
+					});
+					console.log(result)
+				}
+			})
+		}
     },
 
     writeReview: function(e) {
