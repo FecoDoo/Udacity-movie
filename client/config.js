@@ -38,10 +38,16 @@ var config = {
         //所有影评
         allReviewsUrl: `${host}/weapp/reviews/all`,
 
-        //取一部电影
+		//判断是否已经评价过当前电影
+		addReviewCheck: `${host}/weapp/movie/check?`,
+        
+		//取一部电影
         movie: `${host}/weapp/movie?movie_id=`,
 
-        //收藏一条评论
+		//验证评论是否已经被收藏
+		favourReviewCheck: `${host}/weapp/reviews/check?review_id=`,
+        
+		//收藏一条评论
         favourReviewUrl: `${host}/weapp/reviews/favour?review_id=`,
 
         //取出所有评论

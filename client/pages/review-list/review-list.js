@@ -20,24 +20,29 @@ Page({
 		_this.setData({
             movie
         })
-        qcloud.request({
-			
-            url: config.service.reviewsUrl + movie.id,
-            success: result => {
-				this.setData({
-					reviewList: result.data.data
-                })
-            },
-            fail: result => {
-                wx.showModal({
-                    title: '返回错误',
-                    content: '请求失败',
-                    showCancel: false
-                });
-            }
-        })
+        this.getNewReview()
     },
 
+	getNewReview: function(){
+		qcloud.request({
+
+			url: config.service.reviewsUrl + this.data.movie.id,
+			success: result => {
+				this.setData({
+					reviewList: result.data.data
+				})
+			},
+			fail: result => {
+				wx.showModal({
+					title: '返回错误',
+					content: '请求失败',
+					showCancel: false
+				});
+			}
+		})
+	},
+
+	
     backHomeClick: function(e) {
         wx.navigateBack({
             delta: 5
@@ -53,5 +58,9 @@ Page({
         wx.navigateTo({
             url: pageUrl
         })
-    }
+    },
+
+	onPullDownRefresh: function () {
+		this.getNewReview()
+	},
 })

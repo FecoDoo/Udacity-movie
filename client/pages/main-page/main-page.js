@@ -18,26 +18,30 @@ Page({
      */
     onLoad: function(options) {
         //获取影评，在获取对应的热门电影
-        qcloud.request({
-            url: config.service.allReviewsUrl,
-            success: res => {
-                const reviewList = res.data.data
-                const review = reviewList[Math.floor(Math.random() * reviewList.length)]
-                this.getMovie(review.movie_id)
-
-                this.setData({
-                    review
-                })
-            },
-            fail: res => {
-                wx.showModal({
-                    title: '返回错误',
-                    content: res,
-                    showCancel: false
-                });
-            }
-        })
+        this.getAllReview()
     },
+
+	getAllReview(){
+		qcloud.request({
+			url: config.service.allReviewsUrl,
+			success: res => {
+				const reviewList = res.data.data
+				const review = reviewList[Math.floor(Math.random() * reviewList.length)]
+				this.getMovie(review.movie_id)
+
+				this.setData({
+					review
+				})
+			},
+			fail: res => {
+				wx.showModal({
+					title: '返回错误',
+					content: res,
+					showCancel: false
+				});
+			}
+		})
+	},
 
     getMovie: function(movie_id) {
         qcloud.request({

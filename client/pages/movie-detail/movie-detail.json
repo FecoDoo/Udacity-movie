@@ -2,5 +2,7 @@
 	"navigationBarTitleText": "电影详情",
 	"usingComponents": {
 		"movie-card": "/components/movie-card/movie-card"
-	}
+	},
+	"enablePullDownRefresh":true
+
 }

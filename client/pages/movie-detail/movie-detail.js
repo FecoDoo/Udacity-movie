@@ -1,12 +1,16 @@
-const utils = require('../../utils/util.js');
-
+const utils = require('../../utils/util.js')
+const qcloud = require('../../vendor/wafer2-client-sdk/index')
+const config = require('../../config')
+const app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        movie: {}
+        movie: {},
+		isReviewed: 0,
+		userInfo: null
     },
 
     /**
@@ -17,8 +21,27 @@ Page({
         this.setData({
             movie
         })
+		
     },
-
+    onShow: function() {
+        app.checkSession({
+            success: ({ userInfo }) => {
+                this.setData({
+                    userInfo
+                })    
+            },
+			fail: res => {
+				console.log(res)
+			}
+        })
+    },
+	onReady: function() {
+		if (this.data.userInfo === null) {
+			wx.redirectTo({
+				url: '../review-mine/review-mine?',
+			})
+		}
+	},
     getView: function(e) {
         let pageUrl = `../review-list/review-list?`
         pageUrl += utils.createMovieParam(this.data.movie)
@@ -27,29 +50,72 @@ Page({
             url: pageUrl
         })
     },
+	onPullDownRefresh: function () {
+		
+	},
+	// check: function() {
+    //     var _this = this
+	// 	wx.request({
+	// 		url: config.service.addReviewCheck + 'user_id=' + _this.data.userInfo.openId + '&movie_id='+_this.data.movie.id,
+	// 		success: res => {
+	// 			_this.setData({
+	// 				isReviewed:res.data.data
+	// 			})
+	// 		},
+	// 		fail: res => {
+	// 			console.log('Check Failed')
+	// 			console.log(res)
+	// 		}
+	// 	})
+    // },
 
     addView: function(e) {
-        let pageUrl = `../review-edit/review-edit?`
-        pageUrl += utils.createMovieParam(this.data.movie)
+		var _this = this
+		wx.request({
+			url: config.service.addReviewCheck + 'user_id=' + _this.data.userInfo.openId + '&movie_id=' + _this.data.movie.id,
+			success: res => {
+				_this.setData({
+					isReviewed: res.data.data
+				})
+				if (this.data.isReviewed === 0) {
+					let pageUrl = `../review-edit/review-edit?`
+					pageUrl += utils.createMovieParam(this.data.movie)
 
-        wx.showActionSheet({
-            itemList: ['文字', '音频'],
-            success: function(res) {
-				console.log(res)
-				if (res.tapIndex == 0) {
-                    wx.navigateTo({
-                        url: pageUrl + 'editType=0'
-                    })
-				} else if (res.tapIndex == 1) {
-                    wx.navigateTo({
-                        url: pageUrl + 'editType=1'
-                    })
-                }
-            },
-            fail: function(res) {
-                console.log(res.errMsg)
-            }
-        })
-    }
-
+					wx.showActionSheet({
+						itemList: ['文字', '音频'],
+						success: function (res) {
+							if (res.tapIndex == 0) {
+								wx.navigateTo({
+									url: pageUrl + 'editType=0'
+								})
+							} else if (res.tapIndex == 1) {
+								wx.navigateTo({
+									url: pageUrl + 'editType=1'
+								})
+							}
+						},
+						fail: function (res) {
+							console.log(res.errMsg)
+						}
+					})
+				} else {
+					wx.showModal({
+						title: '错误',
+						content: '您已经评价过该影片',
+					})
+				}
+			},
+			fail: res => {
+				wx.showModal({
+					title: '错误',
+					content: '服务器交互错误',
+				})
+			}
+		})
+    },
+	navigateToMine: function (e) {
+		wx.navigateTo({
+			url: '../review-mine/review-mine'
+		})
+	}
 })

@@ -17,10 +17,13 @@ Page({
     },
 
     onLoad: function(options) {
-
+		
     },
 
     onShow: function() {
+		var pages = getCurrentPages();
+		var currPage = pages[pages.length - 1];   //当前页面
+		var prevPage = pages[pages.length - 2];
 		// 同步授权状态
 		this.setData({
             loginType: app.data.loginType
@@ -33,7 +36,9 @@ Page({
 				this.setData({
 					userInfo: userInfo
 				})
-				console.log('Success')
+				prevPage.setData({
+					userInfo:userInfo
+				})
 				this.getAllFavour()
 			},
 			error: () => {
@@ -47,13 +52,17 @@ Page({
 		
     },
 
+	onPullDownRefresh: function () {
+		
+	},
+
     getAllFavour: function() {
 		qcloud.request({
             url: config.service.allFavourUrl,
             success: result => {
 				this.setData({
                     favourList: result.data.data,
-                    listname: "收藏的影评"
+                    listname: "收藏的影评",
                 })
             },
             fail: result => {
@@ -82,7 +91,7 @@ Page({
     switchList: function() {
         wx.showActionSheet({
             itemList: ['收藏的影评', '我发布的影评'],
-            success: function(res) {
+            success: res => {
                 if (res.tapIndex == 0) {
                     this.getAllFavour()
                 } else if (res.tapIndex == 1) {

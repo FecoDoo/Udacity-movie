@@ -5,13 +5,13 @@
             <text class='fa fa-play-circle' />
         </voice-block>
         <view slot="buttons" class="buttons">
-            <view class='view-button' bindtap="favourReview">
+            <view wx:if="{{ifExist==0}}" class='view-button' bindtap="favourReview">
                 <text class='fa fa-star' />
                 <text>收藏影评</text>
             </view>
-            <view class='add-button' bindtap="writeReview">
-                <text class='fa fa-pencil' />
-                <text>写影评</text>
+			<view wx:if="{{ifExist==1}}" class='view-button' bindtap="navigateToMine">
+                <text class='fa fa-star' />
+                <text>我的影评</text>
             </view>
         </view>
     </review-card>

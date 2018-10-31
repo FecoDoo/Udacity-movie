@@ -1,7 +1,7 @@
 // pages/review-edit/review-edit.js
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config.js')
-const utils = require('../../utils/util.js')
+const utils = require('../../utils/util')
 const app = getApp()
 //录音设置
 const recorderManager = wx.getRecorderManager()
@@ -27,7 +27,8 @@ Page({
         tempFilePath: '',
         inputText: '',
         duration: '',
-        movie: {}
+        movie: {},
+		isReviewed: 0
     },
 
     onLoad: function(options) {
@@ -38,17 +39,7 @@ Page({
             movie
         })
 		console.log(this.data)
-        //检查之前是否授权登陆过
-        app.checkSession({
-            success: ({
-                userInfo
-            }) => {
-                this.setData({
-                    userInfo: userInfo
-                })
-            },
-            error: () => {}
-        })
+        
         recorderManager.onStart(() => {
             console.log('recorder start')
             this.setData({
@@ -70,6 +61,23 @@ Page({
                 duration
             })
         })
+    },
+	onShow: function() {
+		app.checkSession({
+			success: ({
+				userInfo
+			}) => {
+				this.setData({
+					userInfo: userInfo
+				})
+			},
+			error: () => { }
+		})
+		console.log(this.data)
+	},
+	
+    onPullDownRefresh: function() {
+        
     },
 
     onInput: function(e) {

@@ -8,9 +8,13 @@
                     <text class='fa fa-eye' />
                     <text>查看影评</text>
                 </view>
-                <view class='add-button' bindtap="addView">
+                <view wx:if="{{isReviewed == 0}}" class='add-button' bindtap="addView">
                     <text class='fa fa-comments' />
                     <text>添加影评</text>
+                </view>
+				<view wx:if="{{isReviewed == 1}}" class='add-button' bindtap="navigateToMine">
+                    <text class='fa fa-comments' />
+                    <text>我的影评</text>
                 </view>
             </view>
         </view>

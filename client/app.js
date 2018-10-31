@@ -13,6 +13,57 @@ App({
 	data: {
 		loginType: UNPROMPTED,
 	},
+
+	checkSession({ success, error }) {
+		if (userInfo) {
+			return success && success({
+				userInfo
+			})
+		}
+		wx.checkSession({
+			success: () => {
+				this.getUserInfo({
+					success: res => {
+						userInfo = res.userInfo
+
+						success && success({
+							userInfo
+						})
+					},
+					fail: () => {
+						error && error()
+					}
+				})
+			},
+			fail: () => {
+				error && error()
+			}
+		})
+	},
+
+	getUserInfo({ success, error }) {
+		if (userInfo) return userInfo
+		qcloud.request({
+			url: config.service.user,
+			login: true,
+			success: result => {
+				let data = result.data
+				if (!data.code) {
+					userInfo = data.data
+					
+					success && success({
+						userInfo
+					})
+				} else {
+					error && error()
+				}
+			},
+			fail: () => {
+				error && error()
+			}
+		})
+	},
+
 	login({ success, error }) {
 		wx.getSetting({
 			success: res => {
@@ -41,12 +92,13 @@ App({
 			}
 		})
 	},
+
 	doQcloudLogin({ success, error }) {
 		// 调用 qcloud 登陆接口
 		qcloud.login({
 			success: result => {
 				if (result) {
-					let userInfo = result
+					userInfo = result
 					success && success({
 						userInfo
 					})
@@ -54,56 +106,7 @@ App({
 					// 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
 					this.getUserInfo({ success, error })
 				}
-			},
-			fail: () => {
-				error && error()
-			}
-		})
-	},
-
-	getUserInfo({ success, error }) {
-		if (userInfo) return userInfo
-		qcloud.request({
-			url: config.service.user,
-			login: true,
-			success: result => {
-				let data = result.data
-				if (!data.code) {
-					let userInfo = data.data
-					
-					success && success({
-						userInfo
-					})
-				} else {
-					error && error()
-				}
-			},
-			fail: () => {
-				error && error()
-			}
-		})
-	},
-
-	checkSession({ success, error }) {
-		if (userInfo) {
-			return success && success({
-				userInfo
-			})
-		}
-		wx.checkSession({
-			success: () => {
-				this.getUserInfo({
-					success: res => {
-						let userInfo = res.userInfo
-						
-						success && success({
-							userInfo
-						})
-					},
-					fail: () => {
-						error && error()
-					}
-				})
+				console.log('login')
 			},
 			fail: () => {
 				error && error()
