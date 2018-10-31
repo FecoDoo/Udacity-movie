@@ -73,8 +73,8 @@ CREATE TABLE `reviews`  (
 -- ----------------------------
 -- Records of reviews
 -- ----------------------------
-INSERT INTO `reviews` VALUES ('https://udacity-fecodoo-1254368307.cos.ap-shanghai.myqcloud.com/users/timg.jpg', '测试员A', NULL, NULL, 0, '很差的电影', '2018-10-25 10:00:15', '071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi', 1, 1);
-INSERT INTO `reviews` VALUES ('https://udacity-fecodoo-1254368307.cos.ap-shanghai.myqcloud.com/users/timg.jpg', '测试员A', NULL, NULL, 0, '很棒的电影', '2018-10-25 10:00:15', '071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi', 13, 2);
+INSERT INTO `reviews` VALUES ('https://udacity-fecodoo-1254368307.cos.ap-shanghai.myqcloud.com/users/timg.jpg', '测试员A', NULL, NULL, 0, '很差的电影', '2018-10-25 10:00:15', 'abcdefg', 1, 1);
+INSERT INTO `reviews` VALUES ('https://udacity-fecodoo-1254368307.cos.ap-shanghai.myqcloud.com/users/timg.jpg', '测试员B', NULL, NULL, 0, '很棒的电影', '2018-10-25 10:00:15', 'abcdefgh', 2, 2);
 
 -- ----------------------------
 -- Table structure for user_review
@@ -87,12 +87,6 @@ CREATE TABLE `user_review`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_review_id`(`review_id`) USING BTREE,
   CONSTRAINT `user_review_id` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`review_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of user_review
--- ----------------------------
-INSERT INTO `user_review` VALUES ('071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi', 1, 1);
-INSERT INTO `user_review` VALUES ('071vqIHb2sPAkO0BOHGb2xbUHb2vqIHi', 2, 2);
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;

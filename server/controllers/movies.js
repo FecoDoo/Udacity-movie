@@ -27,13 +27,8 @@ module.exports = {
 			return
 		}
 		const movie_id = data['movie_id']
+		//let user_id = ctx.state.$wxInfo.userinfo.openId
 		const user_id = data['user_id']
-		const res = await DB.query('SELECT * FROM reviews WHERE user_id = ? AND movie_id = ?',[user_id,movie_id])
-
-		if (res == undefined){
-			ctx.state.data = 0
-		} else {
-			ctx.state.data = 1
-		}
+		ctx.state.data = await DB.query('SELECT * FROM reviews WHERE user_id = ? AND movie_id = ?',[user_id,movie_id])
 	}
 }

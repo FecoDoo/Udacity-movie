@@ -36,7 +36,7 @@ Page({
         })
     },
 	onReady: function() {
-		if (this.data.userInfo === null) {
+		if (this.data.userInfo == null) {
 			wx.redirectTo({
 				url: '../review-mine/review-mine?',
 			})
@@ -72,10 +72,16 @@ Page({
     addView: function(e) {
 		var _this = this
 		wx.request({
-			url: config.service.addReviewCheck + 'user_id=' + _this.data.userInfo.openId + '&movie_id=' + _this.data.movie.id,
+			url: config.service.addReviewCheck + _this.data.movie.id + '&user_id=' + this.data.userInfo.openId,
 			success: res => {
+				var temp = 0
+				if (res.data.data.length == 0){
+					temp = 0
+				} else {
+					temp = 1
+				}
 				_this.setData({
-					isReviewed: res.data.data
+					isReviewed: temp
 				})
 				if (this.data.isReviewed === 0) {
 					let pageUrl = `../review-edit/review-edit?`

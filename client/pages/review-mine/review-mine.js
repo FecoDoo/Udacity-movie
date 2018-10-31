@@ -49,7 +49,6 @@ Page({
 				});
 			}
 		})
-		
     },
 
 	onPullDownRefresh: function () {
@@ -64,6 +63,7 @@ Page({
                     favourList: result.data.data,
                     listname: "收藏的影评",
                 })
+				console.log(result)
             },
             fail: result => {
                 wx.showModal({

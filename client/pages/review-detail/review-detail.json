@@ -3,5 +3,6 @@
 	"usingComponents": {
 		"review-card": "/components/review-card/review-card",
 		"voice-block": "/components/voice-block/voice-block"
-	}
+	},
+	"enablePullDownRefresh":true
 }

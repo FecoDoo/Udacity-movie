@@ -23,14 +23,9 @@ module.exports = {
     check: async ctx => {
 		const data = ctx.request.query
 		const review_id = data['review_id']
-		// const user_id = ctx.state.$wxInfo.userinfo.openId
+		//let user_id = ctx.state.$wxInfo.userinfo.openId
 		const user_id = data['user_id']
-        const res = await DB.query('SELECT * FROM user_review WHERE user_id = ? AND review_id = ?',[user_id,review_id])
-		if (res == undefined){
-            ctx.state.data = 0
-        } else {
-            ctx.state.data = 1
-        }
+		ctx.state.data = await DB.query('SELECT * FROM user_review WHERE user_id = ? AND review_id = ?',[user_id,review_id])
     },
 
     add: async ctx => {
@@ -50,7 +45,7 @@ module.exports = {
     favour: async ctx => {
         const body = ctx.request.query
         const review_id = body.review_id
-        const user_id = ctx.state.$wxInfo.userinfo.openId
+        let user_id = ctx.state.$wxInfo.userinfo.openId
 
         ctx.state.data = await DB.query(`INSERT INTO user_review(review_id, user_id) VALUES (?, ?)`, [review_id, user_id])
     },

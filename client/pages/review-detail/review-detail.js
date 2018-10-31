@@ -13,7 +13,7 @@ Page({
         movie: [],
         review: [],
         userInfo: null,
-        ifExist: 0
+        ifExist: null
     },
 
     onLoad: function(options) {
@@ -42,15 +42,23 @@ Page({
 			},
 			error: () => { }
 		})
+		this.checkIfExists()
     },
-
+	
     checkIfExists: function() {
-        wx.request({
+        var _this = this
+		qcloud.request({
             url: config.service.favourReviewCheck + this.data.review.review_id + '&user_id=' + this.data.userInfo.openId,
             success: result => {
-                this.setData({
-                    ifExist: result.data.data
-                })
+				var temp = 0
+				if (result.data.data.length == 0){
+					temp = 0
+				} else {
+					temp = 1
+				}
+				_this.setData({
+					ifExist: temp
+				})
             },
             fail: result => {
                 wx.showModal({
@@ -64,38 +72,33 @@ Page({
     },
 
     favourReview: function(e) {
-        var _this = this
-        if (!_this.data.userInfo) {
-            wx.redirectTo({
-                url: '../review-mine/review-mine'
-            })
-        } else {
-			this.checkIfExists()
-			if (this.data.ifExist === 0 ){
-				const id = _this.data.review.review_id
-				qcloud.request({
-					url: config.service.favourReviewUrl + id,
-					success: result => {
-						wx.showToast({
-							title: '收藏成功'
-						})
-					},
-					fail: result => {
-						wx.showModal({
-							title: '返回错误',
-							content: '',
-							showCancel: false
-						});
-						console.log(result)
-					}
-				})
-			} else {
-				wx.showModal({
-					title: '错误',
-					content: '你已经收藏过该影评',
-				})
-			}
-        }
+		var _this = this
+		console.log(this.data.ifExist)
+		if (this.data.ifExist === 0 ){
+			const id = _this.data.review.review_id
+			qcloud.request({
+				url: config.service.favourReviewUrl + id,
+				success: result => {
+					wx.showToast({
+						title: '收藏成功'
+					})
+					_this.onShow()
+				},
+				fail: result => {
+					wx.showModal({
+						title: '返回错误',
+						content: '',
+						showCancel: false
+					});
+					console.log(result)
+				}
+			})
+		} else {
+			wx.showModal({
+				title: '错误',
+				content: '你已经收藏过该影评',
+			})
+		}
     },
 
     // writeReview: function(e) {

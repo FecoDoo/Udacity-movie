@@ -39,7 +39,7 @@ var config = {
         allReviewsUrl: `${host}/weapp/reviews/all`,
 
 		//判断是否已经评价过当前电影
-		addReviewCheck: `${host}/weapp/movie/check?`,
+		addReviewCheck: `${host}/weapp/movie/check?movie_id=`,
         
 		//取一部电影
         movie: `${host}/weapp/movie?movie_id=`,
