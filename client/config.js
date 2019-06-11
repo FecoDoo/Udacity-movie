@@ -44,6 +44,8 @@ var config = {
     //收藏一条评论
     favourReviewUrl: `${host}/weapp/reviews/favour?review_id=`,
 
+	favourReviewCheck: `${host}/weapp/reviews/check?review_id=`,
+
     //取出所有评论
     allFavourUrl: `${host}/weapp/reviews/allFavour`,
 

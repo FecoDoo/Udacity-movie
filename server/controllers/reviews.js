@@ -21,10 +21,8 @@ module.exports = {
     },
 
     check: async ctx => {
-		const data = ctx.request.query
-		const review_id = data['review_id']
-		//let user_id = ctx.state.$wxInfo.userinfo.openId
-		const user_id = data['user_id']
+		const review_id = ctx.request.query['review_id']
+		let user_id = ctx.state.$wxInfo.userinfo.openId
 		ctx.state.data = await DB.query('SELECT * FROM user_review WHERE user_id = ? AND review_id = ?',[user_id,review_id])
     },
 

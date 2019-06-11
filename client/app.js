@@ -2,6 +2,7 @@
 var qcloud = require('./vendor/wafer2-client-sdk/index')
 var config = require('./config')
 let userInfo
+let openId
 const UNPROMPTED = 0
 const UNAUTHORIZED = 1
 const AUTHORIZED = 2
@@ -17,7 +18,7 @@ App({
 	checkSession({ success, error }) {
 		if (userInfo) {
 			return success && success({
-				userInfo
+				userInfo,openId
 			})
 		}
 		wx.checkSession({
@@ -102,11 +103,12 @@ App({
 					success && success({
 						userInfo
 					})
+          console.log("First time login")
 				} else {
 					// 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
 					this.getUserInfo({ success, error })
 				}
-				console.log('login')
+				console.log(userInfo)
 			},
 			fail: () => {
 				error && error()

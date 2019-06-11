@@ -48,7 +48,7 @@ Page({
     checkIfExists: function() {
         var _this = this
 		qcloud.request({
-            url: config.service.favourReviewCheck + this.data.review.review_id + '&user_id=' + this.data.userInfo.openId,
+            url: config.service.favourReviewCheck + _this.data.review.review_id,
             success: result => {
 				var temp = 0
 				if (result.data.data.length == 0){
@@ -66,18 +66,15 @@ Page({
                     content: '请求失败',
                     showCancel: false
                 });
-                console.log(result)
             }
         })
     },
 
     favourReview: function(e) {
 		var _this = this
-		console.log(this.data.ifExist)
 		if (this.data.ifExist === 0 ){
-			const id = _this.data.review.review_id
 			qcloud.request({
-				url: config.service.favourReviewUrl + id,
+				url: config.service.favourReviewUrl + _this.data.review.review_id,
 				success: result => {
 					wx.showToast({
 						title: '收藏成功'
